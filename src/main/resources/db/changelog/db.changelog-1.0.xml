@@ -1,0 +1,79 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="vector" id="1005072019_create_tables">
+        <createTable tableName="cliente">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_empresa"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="cliente_number" type="VARCHAR(255)"/>
+            <column name="numero_cuenta" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="cuenta">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_empresa"/>
+            </column>
+            <column name="numero_cuenta" type="VARCHAR(255)"/>
+            <column name="saldo" type="DOUBLE"/>
+            <column name="estado" type="VARCHAR(2)"/>
+        </createTable>
+        <createTable tableName="transferencia">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_empresa"/>
+            </column>
+            <column name="numero_cuenta_origen" type="VARCHAR(255)"/>
+            <column name="numero_cuenta_destino" type="VARCHAR(255)"/>
+            <column name="importe" type="DOUBLE"/>
+            <column name="estado" type="VARCHAR(2)"/>
+        </createTable>
+        <createTable tableName="empresa">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_empresa"/>
+            </column>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="empresa_number" type="VARCHAR(255)"/>
+        </createTable>
+        <createTable tableName="servicio">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_servicio"/>
+            </column>
+            <column name="empresa_id" type="BIGINT"/>
+            <column name="name" type="VARCHAR(255)"/>
+            <column name="descripcion" type="VARCHAR(255)"/>
+            <column name="servicio_number" type="VARCHAR(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseColumnNames="empresa_id"
+            baseTableName="servicio"
+            constraintName="fk_servicio_empresa_id"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="empresa"/>
+        <createTable tableName="pago">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="pk_pago"/>
+            </column>
+            <column name="empresa_id" type="BIGINT"/>
+            <column name="servicio_id" type="BIGINT"/>
+            <column name="importe" type="DOUBLE"/>
+            <column name="estado" type="VARCHAR(2)"/>
+            <column name="fecha" type="TIMESTAMP"/>
+        </createTable>
+         <addForeignKeyConstraint baseColumnNames="empresa_id"
+            baseTableName="pago"
+            constraintName="fk_pago_empresa_id"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="empresa"/>
+          <addForeignKeyConstraint baseColumnNames="servicio_id"
+            baseTableName="pago"
+            constraintName="fk_pago_servicio_id"
+            onDelete="CASCADE"
+            onUpdate="RESTRICT"
+            referencedColumnNames="id"
+            referencedTableName="servicio"/>
+    </changeSet>
+</databaseChangeLog>

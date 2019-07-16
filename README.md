@@ -19,7 +19,7 @@ Se evalúa:
 4.	Refactoring al código
 5.	Documentación de API Rest (Contratos). 
 
-Tenga en cuenta enviarlo dentro del plazo acordado. Fecha Limite: 1 día después de haber recibido el examen.
+Tenga en cuenta enviarlo dentro del plazo acordado. Fecha Limite: 2 días después de haber recibido el examen.
 
     
 Prerequisitos:
